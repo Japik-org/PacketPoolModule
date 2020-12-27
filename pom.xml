@@ -23,6 +23,7 @@
         <dependency>
             <groupId>com.pro100kryto.server.utils</groupId>
             <artifactId>Datagram</artifactId>
+            <scope>provided</scope>
             <version>[1.0.0, 1.1.0)</version>
         </dependency>
     </dependencies>
