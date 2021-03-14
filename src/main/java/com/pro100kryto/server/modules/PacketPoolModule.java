@@ -9,7 +9,7 @@ import com.pro100kryto.server.service.IServiceControl;
 import com.pro100kryto.server.utils.datagram.exceptions.PoolEmptyException;
 import com.pro100kryto.server.utils.datagram.packets.IPacketInProcess;
 import com.pro100kryto.server.utils.datagram.packets.PacketPool;
-import com.sun.istack.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class PacketPoolModule extends Module {
     private static final String ID = "PacketPoolModule";
