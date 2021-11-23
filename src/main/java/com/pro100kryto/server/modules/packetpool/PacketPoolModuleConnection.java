@@ -1,15 +1,16 @@
 package com.pro100kryto.server.modules.packetpool;
 
 import com.pro100kryto.server.logger.ILogger;
-import com.pro100kryto.server.module.AModuleConnectionImpl;
+import com.pro100kryto.server.module.AModuleConnection;
 import com.pro100kryto.server.modules.packetpool.connection.IPacketPoolModuleConnection;
-import com.pro100kryto.server.utils.datagram.packets.IPacketInProcess;
-import com.pro100kryto.server.utils.datagram.packets.PacketPool;
+import com.pro100kryto.server.utils.datagram.packet.Packet;
+import com.pro100kryto.server.utils.datagram.pool.PacketPool;
+import com.pro100kryto.server.utils.datagram.pool.PoolEmptyException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public final class PacketPoolModuleConnection
-        extends AModuleConnectionImpl<PacketPoolModule, IPacketPoolModuleConnection>
+        extends AModuleConnection<PacketPoolModule, IPacketPoolModuleConnection>
         implements IPacketPoolModuleConnection{
 
     private final PacketPool packetPool;
@@ -21,8 +22,8 @@ public final class PacketPoolModuleConnection
 
     @Override
     @Nullable
-    public IPacketInProcess getNextPacket() {
-        return packetPool.getNextPacketOrNull();
+    public Packet getNextPacket() throws PoolEmptyException {
+        return packetPool.getNext();
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.pro100kryto.server.livecycle.ILiveCycleImpl;
 import com.pro100kryto.server.module.AModule;
 import com.pro100kryto.server.module.ModuleParams;
 import com.pro100kryto.server.modules.packetpool.connection.IPacketPoolModuleConnection;
-import com.pro100kryto.server.utils.datagram.packets.PacketPool;
+import com.pro100kryto.server.utils.datagram.pool.PacketPool;
 import org.jetbrains.annotations.NotNull;
 
 public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
