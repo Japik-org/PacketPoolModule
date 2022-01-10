@@ -3,7 +3,7 @@ package com.pro100kryto.server.modules.packetpool;
 import com.pro100kryto.server.logger.ILogger;
 import com.pro100kryto.server.module.AModuleConnection;
 import com.pro100kryto.server.modules.packetpool.connection.IPacketPoolModuleConnection;
-import com.pro100kryto.server.utils.datagram.packet.Packet;
+import com.pro100kryto.server.utils.datagram.packet.DatagramPacketWrapper;
 import com.pro100kryto.server.utils.datagram.pool.PacketPool;
 import com.pro100kryto.server.utils.datagram.pool.PoolEmptyException;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +22,7 @@ public final class PacketPoolModuleConnection
 
     @Override
     @Nullable
-    public Packet getNextPacket() throws PoolEmptyException {
+    public DatagramPacketWrapper getNextPacket() throws PoolEmptyException {
         return packetPool.getNext();
     }
 
