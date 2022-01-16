@@ -3,6 +3,7 @@ package com.pro100kryto.server.modules.packetpool;
 import com.pro100kryto.server.livecycle.AShortLiveCycleImpl;
 import com.pro100kryto.server.livecycle.ILiveCycleImpl;
 import com.pro100kryto.server.module.AModule;
+import com.pro100kryto.server.module.ModuleConnectionParams;
 import com.pro100kryto.server.module.ModuleParams;
 import com.pro100kryto.server.modules.packetpool.connection.IPacketPoolModuleConnection;
 import com.pro100kryto.server.utils.datagram.pool.PacketPool;
@@ -16,12 +17,12 @@ public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
     }
 
     @Override
-    public @NotNull IPacketPoolModuleConnection createModuleConnection() {
-        return new PacketPoolModuleConnection(this, logger, packetPool);
+    public @NotNull IPacketPoolModuleConnection createModuleConnection(ModuleConnectionParams params) {
+        return new PacketPoolModuleConnection(this, params, packetPool);
     }
 
     @Override
-    protected @NotNull ILiveCycleImpl getDefaultLiveCycleImpl() {
+    protected @NotNull ILiveCycleImpl createDefaultLiveCycleImpl() {
         return new PacketPoolLiveCycleImpl();
     }
 
