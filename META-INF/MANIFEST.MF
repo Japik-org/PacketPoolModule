@@ -1,2 +1,7 @@
 Manifest-Version: 1.0
+
+Name: Module-Impl
+Shared-Subtype: PacketPool
+Subtype: PacketPool
+Version: 1.1.1
 Base-Package: com.pro100kryto.server

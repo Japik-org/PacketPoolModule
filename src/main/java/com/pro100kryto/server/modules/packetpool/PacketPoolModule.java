@@ -1,12 +1,15 @@
 package com.pro100kryto.server.modules.packetpool;
 
 import com.pro100kryto.server.livecycle.AShortLiveCycleImpl;
-import com.pro100kryto.server.livecycle.ILiveCycleImpl;
+import com.pro100kryto.server.livecycle.controller.ILiveCycleImplId;
+import com.pro100kryto.server.livecycle.controller.LiveCycleController;
 import com.pro100kryto.server.module.AModule;
 import com.pro100kryto.server.module.ModuleConnectionParams;
 import com.pro100kryto.server.module.ModuleParams;
 import com.pro100kryto.server.modules.packetpool.connection.IPacketPoolModuleConnection;
 import com.pro100kryto.server.utils.datagram.pool.PacketPool;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
@@ -22,11 +25,17 @@ public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
     }
 
     @Override
-    protected @NotNull ILiveCycleImpl createDefaultLiveCycleImpl() {
-        return new PacketPoolLiveCycleImpl();
+    protected void initLiveCycleController(LiveCycleController liveCycleController) {
+        super.initLiveCycleController(liveCycleController);
+
+        liveCycleController.putImplAll(new PacketPoolModuleLiveCycleImpl());
     }
 
-    private final class PacketPoolLiveCycleImpl extends AShortLiveCycleImpl {
+    private final class PacketPoolModuleLiveCycleImpl extends AShortLiveCycleImpl implements ILiveCycleImplId {
+        @Getter
+        private final String name = "PacketPoolModuleLiveCycleImpl";
+        @Getter @Setter
+        private int priority = LiveCycleController.PRIORITY_NORMAL;
 
         @Override
         public void init() {
