@@ -1,19 +1,21 @@
 package com.pro100kryto.server.modules.packetpool;
 
+import cn.danielw.fop.DisruptorObjectPool;
+import cn.danielw.fop.PoolConfig;
 import com.pro100kryto.server.livecycle.AShortLiveCycleImpl;
 import com.pro100kryto.server.livecycle.controller.ILiveCycleImplId;
 import com.pro100kryto.server.livecycle.controller.LiveCycleController;
 import com.pro100kryto.server.module.AModule;
 import com.pro100kryto.server.module.ModuleConnectionParams;
 import com.pro100kryto.server.module.ModuleParams;
-import com.pro100kryto.server.modules.packetpool.connection.IPacketPoolModuleConnection;
-import com.pro100kryto.server.utils.datagram.pool.PacketPool;
+import com.pro100kryto.server.modules.packetpool.shared.IPacketPoolModuleConnection;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
+@Getter
 public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
-    private PacketPool packetPool;
+    private DisruptorObjectPool<DatagramPacketFactory.DatagramPacketPooled> pool;
 
     public PacketPoolModule(ModuleParams moduleParams) {
         super(moduleParams);
@@ -21,7 +23,7 @@ public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
 
     @Override
     public @NotNull IPacketPoolModuleConnection createModuleConnection(ModuleConnectionParams params) {
-        return new PacketPoolModuleConnection(this, params, packetPool);
+        return new PacketPoolModuleConnection(this, params);
     }
 
     @Override
@@ -39,33 +41,38 @@ public class PacketPoolModule extends AModule<IPacketPoolModuleConnection> {
 
         @Override
         public void init() {
-            packetPool = new PacketPool(
-                    settings.getIntOrDefault("pool-capacity", 256),
-                    settings.getIntOrDefault("packet-size", 1024)
+            final PoolConfig config = new PoolConfig();
+            // 128 * 8 = 1024 packets in pool
+            config.setPartitionsCount(settings.getIntOrDefault("partitions-count", 8));
+            config.setMaxPartitionSize(settings.getIntOrDefault("partitions-max-size", 128));
+            config.setMinPartitionSize(settings.getIntOrDefault("partitions-min-size", 128));
+            config.setMaxIdleMilliseconds(settings.getIntOrDefault("idle-mills", config.getMaxIdleMilliseconds()));
+            config.setMaxWaitMilliseconds(settings.getIntOrDefault("wait-mills", config.getMaxWaitMilliseconds()));
+
+            pool = new DisruptorObjectPool<>(
+                    config,
+                    new DatagramPacketFactory(
+                            settings.getIntOrDefault("packet-size", 1024)
+                    )
             );
-            packetPool.refill();
         }
 
         @Override
         public void start() {
-            if (packetPool.isEmpty()){
-                packetPool.refill();
-            }
         }
 
         @Override
         public void stopForce() {
-            packetPool.clear();
         }
 
         @Override
         public void destroy() {
-            packetPool.clear();
-        }
-
-        @Override
-        public boolean canBeStoppedSafe() {
-            return !packetPool.isInUse();
+            try {
+                pool.shutdown();
+            } catch (InterruptedException e) {
+                logger.warn("Failed shutdown pool", e);
+            }
+            pool = null;
         }
     }
 }
