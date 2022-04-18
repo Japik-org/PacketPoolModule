@@ -6,7 +6,7 @@ Subtype: PacketPool
 Version: 1.2.0
 Base-Package: com.pro100kryto.server
 Lib-Impl-Jar: disruptor-1.2.15.jar
-    cn.danielw.fop-fast-object-pool-2.3.0-p1k.jar
+    cn.danielw.fop-fast-object-pool-2.3.1-p1k.jar
 
 Name: Module-Shared
 Subtype: PacketPool

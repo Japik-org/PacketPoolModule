@@ -28,7 +28,7 @@
         <dependency>
             <groupId>cn.danielw</groupId>
             <artifactId>fast-object-pool</artifactId>
-            <version>2.3.0-p1k</version>
+            <version>[2.3.0-p1k, 2.4.0-p1k)</version>
         </dependency>
         <dependency>
             <groupId>com.conversantmedia</groupId>
