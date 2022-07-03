@@ -1,10 +1,10 @@
-package com.pro100kryto.server.modules.packetpool;
+package com.japik.modules.packetpool;
 
 import cn.danielw.fop.ObjectFactoryRaw;
 import cn.danielw.fop.ObjectPool;
 import cn.danielw.fop.Poolable;
-import com.pro100kryto.server.utils.datagram.packet.DatagramPacketRecyclable;
-import com.pro100kryto.server.utils.datagram.pool.RecycleStatus;
+import com.japik.utils.datagram.packet.DatagramPacketRecyclable;
+import com.japik.utils.datagram.pool.RecycleStatus;
 import lombok.Getter;
 
 public class DatagramPacketFactory implements ObjectFactoryRaw<DatagramPacketFactory.DatagramPacketPooled> {

@@ -1,14 +1,14 @@
-package com.pro100kryto.server.modules.packetpool;
+package com.japik.modules.packetpool;
 
 import cn.danielw.fop.DisruptorObjectPool;
 import cn.danielw.fop.PoolConfig;
-import com.pro100kryto.server.livecycle.AShortLiveCycleImpl;
-import com.pro100kryto.server.livecycle.controller.ILiveCycleImplId;
-import com.pro100kryto.server.livecycle.controller.LiveCycleController;
-import com.pro100kryto.server.module.AModule;
-import com.pro100kryto.server.module.ModuleConnectionParams;
-import com.pro100kryto.server.module.ModuleParams;
-import com.pro100kryto.server.modules.packetpool.shared.IPacketPoolModuleConnection;
+import com.japik.livecycle.AShortLiveCycleImpl;
+import com.japik.livecycle.controller.ILiveCycleImplId;
+import com.japik.livecycle.controller.LiveCycleController;
+import com.japik.module.AModule;
+import com.japik.module.ModuleConnectionParams;
+import com.japik.module.ModuleParams;
+import com.japik.modules.packetpool.shared.IPacketPoolModuleConnection;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;

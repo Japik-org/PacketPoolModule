@@ -1,9 +1,9 @@
-package com.pro100kryto.server.modules.packetpool;
+package com.japik.modules.packetpool;
 
-import com.pro100kryto.server.module.AModuleConnection;
-import com.pro100kryto.server.module.ModuleConnectionParams;
-import com.pro100kryto.server.modules.packetpool.shared.IPacketPoolModuleConnection;
-import com.pro100kryto.server.utils.datagram.packet.DatagramPacketRecyclable;
+import com.japik.module.AModuleConnection;
+import com.japik.module.ModuleConnectionParams;
+import com.japik.modules.packetpool.shared.IPacketPoolModuleConnection;
+import com.japik.utils.datagram.packet.DatagramPacketRecyclable;
 import org.jetbrains.annotations.Nullable;
 
 public final class PacketPoolModuleConnection

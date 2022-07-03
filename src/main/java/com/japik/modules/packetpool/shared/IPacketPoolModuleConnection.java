@@ -1,7 +1,7 @@
-package com.pro100kryto.server.modules.packetpool.shared;
+package com.japik.modules.packetpool.shared;
 
-import com.pro100kryto.server.module.IModuleConnection;
-import com.pro100kryto.server.utils.datagram.packet.DatagramPacketRecyclable;
+import com.japik.module.IModuleConnection;
+import com.japik.utils.datagram.packet.DatagramPacketRecyclable;
 
 import java.rmi.RemoteException;
 
